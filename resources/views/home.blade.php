@@ -28,11 +28,16 @@
         </h1>
         <?php foreach($blogs as $blog) : ?>
         <div class="blog-card">
-            <h2>
-                <?= $blog['title'];  ?>
-            </h2>
+            <h3>
+                <a href="/blogs/<?= $blog->slug ?>">
+                    <?= $blog->title;  ?>
+                </a>
+            </h3>
             <p>
-                <?= $blog['description'];  ?>
+                <?= $blog->intro; ?>
+            </p>
+            <p>published at -
+                <?= $blog->created_at; ?>
             </p>
         </div>
         <?php endforeach; ?>
