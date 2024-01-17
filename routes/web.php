@@ -20,9 +20,9 @@ Route::get('/about-us', function () {
     return redirect('/about');
 });
 
-//localhost:8000/blogs/first-blog , $filename = 'first-blog'
-Route::get('/blogs/{slug}', function ($slug) {
+//Route model binding
+Route::get('/blogs/{blog:slug}', function (Blog $blog) {
     return view('blog-detail', [
-        'blog' =>  Blog::find($slug)
+        'blog' =>  $blog
     ]);
 });

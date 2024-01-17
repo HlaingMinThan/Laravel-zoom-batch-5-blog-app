@@ -24,23 +24,30 @@
 
     <div class="container">
         <h1>
-            <?= $title; ?>
+            {{$title}}
         </h1>
-        <?php foreach($blogs as $blog) : ?>
-        <div class="blog-card">
+        @foreach($blogs as $blog)
+        <div
+            class="blog-card"
+            style="{{$loop->even ? 'background-color: lightgreen;' : ''}}"
+        >
             <h3>
-                <a href="/blogs/<?= $blog->slug ?>">
-                    <?= $blog->title;  ?>
+                <a href="/blogs/{{$blog->slug}}">
+                    {{$blog->title}}
+
+                    @if($blog->title === 'Fourth Blog')
+                    <span>(Scheduled Blog)</span>
+                    @endif
                 </a>
             </h3>
             <p>
-                <?= $blog->intro; ?>
+                {{ $blog->intro}}
             </p>
             <p>published at -
-                <?= $blog->created_at; ?>
+                {{$blog->created_at;}}
             </p>
         </div>
-        <?php endforeach; ?>
+        @endforeach
     </div>
 </body>
 
