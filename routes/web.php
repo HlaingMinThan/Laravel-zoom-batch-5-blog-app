@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Blog;
 
 Route::get('/', function () {
-    $blogs = Blog::all(); // need to fix sorting next week
+    $blogs = Blog::latest()->get();
     $title = "My Blog Project";
     return view('home', [
         'blogs' => $blogs,
@@ -21,7 +21,7 @@ Route::get('/about-us', function () {
 });
 
 //Route model binding
-Route::get('/blogs/{blog:slug}', function (Blog $blog) {
+Route::get('/blogs/{blog:slug}', function (Blog $blog) { //Blog::find($id)
     return view('blog-detail', [
         'blog' =>  $blog
     ]);
