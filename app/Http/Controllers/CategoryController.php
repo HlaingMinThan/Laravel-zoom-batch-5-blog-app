@@ -10,7 +10,7 @@ class CategoryController extends Controller
     public function index(Category $category)
     {
         return view('home', [
-            'blogs' =>  $category->blogs->load('category'),
+            'blogs' => $category->blogs()->with('category', 'author')->paginate(3),
             'title' => $category->name
         ]);
     }

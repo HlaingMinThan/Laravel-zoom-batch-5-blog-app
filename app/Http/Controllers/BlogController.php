@@ -9,11 +9,10 @@ class BlogController extends Controller
 {
     public function index()
     {
-        if (request('search')) {
-            $blogs = Blog::where('title', 'LIKE', '%' . request('search') . '%')->get();
-        } else {
-            $blogs = Blog::with('category')->latest()->get();
-        }
+        $blogs = Blog::filter(request(['search', 'username', 'category']))
+            ->paginate(3)
+            ->withQueryString();
+
         $title = "My Blog Project";
         return view('home', [
             'blogs' => $blogs,

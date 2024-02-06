@@ -15,4 +15,29 @@ class Blog extends Model
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
+
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function scopeFilter($q, $filters)
+    {
+        $q->when($filters['search'] ?? null, function ($q) use ($filters) {
+            $q->where(function ($q) use ($filters) {
+                $q->where('title', 'LIKE', '%' . $filters['search'] . '%')
+                    ->orWhere('body', 'LIKE', '%' . $filters['search'] . '%');
+            });
+        })
+            ->when($filters['username'] ?? null, function ($q) use ($filters) {
+                $q->whereHas('author', function ($q) use ($filters) {
+                    $q->where('username', $filters['username']);
+                });
+            })
+            ->when($filters['category'] ?? null, function ($q) use ($filters) {
+                $q->whereHas('category', function ($q) use ($filters) {
+                    $q->where('id', $filters['category']);
+                });
+            });
+    }
 }
