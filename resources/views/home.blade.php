@@ -26,7 +26,16 @@
         <h1>
             {{$title}}
         </h1>
-        @foreach($blogs as $blog)
+        <form action="/">
+            <input
+                value="{{request('search')}}"
+                type="text"
+                name="search"
+                placeholder="search here"
+            >
+            <button type="submit">search</button>
+        </form>
+        @forelse($blogs as $blog)
         <div
             class="blog-card"
             style="{{$loop->even ? 'background-color: lightgreen;' : ''}}"
@@ -43,11 +52,21 @@
             <p>
                 {{ $blog->intro}}
             </p>
+            <p>
+                category - <a href="/categories/{{$blog->category->id}}">
+                    {{$blog->category->name}}
+                </a>
+            </p>
+            <p>
+                Username - <a href="">Mg mg</a>
+            </p>
             <p>published at -
                 {{$blog->created_at;}}
             </p>
         </div>
-        @endforeach
+        @empty
+        <p>no blogs found...</p>
+        @endforelse
     </div>
 </body>
 

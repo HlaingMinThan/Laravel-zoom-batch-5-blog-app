@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Blog;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -16,6 +17,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::factory(100)->create();
-        Blog::factory(200)->create();
+        Category::factory(3)
+            ->has(Blog::factory()->count(20))
+            ->create();
     }
 }
