@@ -31,6 +31,25 @@
 <body>
 
     <div class="container">
+        <nav>
+            <ul>
+                @if (!auth()->user())
+                <li><a href="/login">login</a></li>
+                <li><a href="/register">register</a></li>
+                @else
+                <li>{{auth()->user()->name}}</li>
+                <li>
+                    <form
+                        action="/logout"
+                        method="POST"
+                    >
+                        @csrf
+                        <button>logout</button>
+                    </form>
+                </li>
+                @endif
+            </ul>
+        </nav>
         <h1>
             {{$title}}
         </h1>
