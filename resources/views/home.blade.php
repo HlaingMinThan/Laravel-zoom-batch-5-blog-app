@@ -31,6 +31,10 @@
 <body>
 
     <div class="container">
+        {{-- session flash --}}
+        @if (session('success'))
+        <h1>{{session('success')}}</h1>
+        @endif
         <nav>
             <ul>
                 @if (!auth()->user())
