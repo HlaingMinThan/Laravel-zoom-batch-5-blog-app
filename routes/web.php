@@ -6,6 +6,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LogInController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\MustBeGuestUser;
 use App\Http\Middleware\MustBeLoginUser;
@@ -19,6 +20,7 @@ Route::middleware(MustBeLoginUser::class)->group(function () {
     Route::get('/categories/{category:id}', [CategoryController::class, 'index']);
     Route::get('/authors/{user:username}', [UserController::class, 'index']);
     Route::post('/blogs/{blog}/comments/store', [CommentController::class, 'store']);
+    Route::post('/blogs/{blog}/subscribe', [SubscriberController::class, 'store']);
 });
 
 //not login

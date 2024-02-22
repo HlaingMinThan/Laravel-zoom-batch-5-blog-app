@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Blog;
+use App\Models\BlogUser;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\User;
@@ -22,8 +23,15 @@ class DatabaseSeeder extends Seeder
         //     ->has(Blog::factory()->count(20))
         //     ->create();
 
-        Blog::factory(20)
-            ->has(Comment::factory()->count(20))
+        // Blog::factory(20)
+        //     ->has(Comment::factory()->count(20))
+        //     ->create();
+
+
+        // BlogUser::factory(20)->create();
+
+        User::factory(3)
+            ->has(Blog::factory()->count(10), 'subscribedBlogs')
             ->create();
     }
 }

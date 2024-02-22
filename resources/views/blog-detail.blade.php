@@ -17,7 +17,19 @@
 </head>
 
 <body>
-    <h1> {{ $blog->title }}</h1>
+    <h1> {{ $blog->title }}
+
+        <form
+            action="/blogs/{{$blog->id}}/subscribe"
+            method="POST"
+        >
+            @csrf
+            <button type="submit">
+
+                {{ !auth()->user()->isSubscribed($blog) ? 'subscribe' : 'unsubscribe'}}
+            </button>
+        </form>
+    </h1>
     <p> {{ $blog->body }}</p>
 
     <h1>Comments</h1>

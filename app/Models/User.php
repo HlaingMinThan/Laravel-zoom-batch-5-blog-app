@@ -18,6 +18,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'username',
         'name',
         'email',
         'password',
@@ -51,5 +52,16 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    // a user belongsToMany subscribedBlogs
+    public function subscribedBlogs()
+    {
+        return $this->belongsToMany(Blog::class, 'blog_user');
+    }
+
+    public function isSubscribed($blog)
+    {
+        return $this->subscribedBlogs->contains('id', $blog->id);
     }
 }
