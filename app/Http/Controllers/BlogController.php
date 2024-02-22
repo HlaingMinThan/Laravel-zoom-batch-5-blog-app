@@ -22,8 +22,10 @@ class BlogController extends Controller
 
     public function show(Blog $blog)
     {
+        $comments = $blog->comments()->latest()->paginate(5);
         return view('blog-detail', [
-            'blog' =>  $blog
+            'blog' =>  $blog,
+            'comments' =>  $comments,
         ]);
     }
 }

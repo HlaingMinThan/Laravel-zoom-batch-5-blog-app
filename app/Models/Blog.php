@@ -40,4 +40,9 @@ class Blog extends Model
                 });
             });
     }
+    //a  blog has many comments
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
