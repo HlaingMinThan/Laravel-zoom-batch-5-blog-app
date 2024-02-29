@@ -22,11 +22,11 @@ class CommentController extends Controller
         $comment->blog_id =  $blog->id;
         $comment->save();
 
-        //blocking code
         $blog->subscribedUsers->each(function ($user) use ($comment) {
             if (auth()->id() != $user->id) {
+                //queue code
                 Mail::to($user->email)
-                    ->send(new SubscriberMail($comment));
+                    ->queue(new SubscriberMail($comment));
             }
         });
         return back();
