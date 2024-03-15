@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
@@ -8,18 +9,23 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\MustBeAdminUser;
 use App\Http\Middleware\MustBeGuestUser;
 use App\Http\Middleware\MustBeLoginUser;
 use Illuminate\Support\Facades\Route;
+
+
+Route::middleware(MustBeAdminUser::class)->group(function () {
+    Route::get('/admin', [AdminController::class, 'index']);
+    Route::get('/admin/blogs/create', [AdminController::class, 'create']);
+    Route::delete('/admin/blogs/{blog}/delete', [AdminController::class, 'delete']);
+});
 
 //login
 Route::middleware(MustBeLoginUser::class)->group(function () {
     Route::get('/', [BlogController::class, 'index']);
     Route::get('/blogs/{blog:slug}', [BlogController::class, 'show']);
     Route::post('/logout', [LogoutController::class, 'destroy']);
-    Route::get('/categories/{category:id}', [CategoryController::class, 'index']);
-    Route::get('/authors/{user:username}', [UserController::class, 'index']);
-    Route::post('/blogs/{blog}/comments/store', [CommentController::class, 'store']);
     Route::post('/blogs/{blog}/subscribe', [SubscriberController::class, 'store']);
 });
 
