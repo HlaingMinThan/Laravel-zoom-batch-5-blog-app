@@ -18,7 +18,13 @@
                 <th scope="row">{{$blog->id}}</th>
                 <td>{{$blog->title}}</td>
                 <td>{{$blog->slug}}</td>
-                <td><button class="btn btn-warning">edit</button></td>
+                @can('edit',$blog)
+                <td><a
+                        href="/admin/blogs/{{$blog->id}}/edit"
+                        class="btn btn-warning"
+                    >edit</a></td>
+                @endcan
+                @can('delete',$blog)
                 <td>
                     <form
                         action="/admin/blogs/{{$blog->id}}/delete"
@@ -32,6 +38,7 @@
                         >delete</button>
                     </form>
                 </td>
+                @endcan
             </tr>
             @endforeach
         </tbody>

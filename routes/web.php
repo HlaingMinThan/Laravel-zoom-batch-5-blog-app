@@ -14,10 +14,12 @@ use App\Http\Middleware\MustBeGuestUser;
 use App\Http\Middleware\MustBeLoginUser;
 use Illuminate\Support\Facades\Route;
 
-
 Route::middleware(MustBeAdminUser::class)->group(function () {
     Route::get('/admin', [AdminController::class, 'index']);
     Route::get('/admin/blogs/create', [AdminController::class, 'create']);
+    Route::post('/admin/blogs/store', [AdminController::class, 'store']);
+    Route::get('/admin/blogs/{blog}/edit', [AdminController::class, 'edit']);
+    Route::patch('/admin/blogs/{blog}/update', [AdminController::class, 'update']);
     Route::delete('/admin/blogs/{blog}/delete', [AdminController::class, 'delete']);
 });
 

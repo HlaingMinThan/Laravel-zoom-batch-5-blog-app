@@ -1,18 +1,19 @@
 <x-admin-layout>
-    <h1>Blog create form</h1>
+    <h1>Blog Edit form</h1>
     <form
-        action="/admin/blogs/store"
+        action="/admin/blogs/{{$blog->id}}/update"
         method="POST"
         enctype="multipart/form-data"
     >
         @csrf
+        @method('PATCH')
         <div class="mb-3">
             <label
                 for="exampleInputEmail1"
                 class="form-label"
             >Title</label>
             <input
-                value="{{old('title')}}"
+                value="{{old('title',$blog->title)}}"
                 name="title"
                 type="text"
                 class="form-control"
@@ -35,6 +36,12 @@
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
             >
+            <img
+                src="{{$blog->photo}}"
+                width="100"
+                height="100"
+                class="my-2"
+            >
             @error('title')
             <p class="text-danger">{{$message}}</p>
             @enderror
@@ -45,7 +52,7 @@
                 class="form-label"
             >Slug</label>
             <input
-                value="{{old('slug')}}"
+                value="{{old('slug',$blog->slug)}}"
                 name="slug"
                 type="text"
                 class="form-control"
@@ -61,7 +68,7 @@
                 class="form-label"
             >Intro</label>
             <input
-                value="{{old('intro')}}"
+                value="{{old('intro',$blog->intro)}}"
                 name="intro"
                 type="text"
                 class="form-control"
@@ -82,7 +89,10 @@
                 class="form-control"
             >
                 @foreach ($categories as $category)
-                <option value="{{$category->id}}">{{$category->name}}</option>
+                <option {{$category->id == $blog->category_id
+                    ? 'selected' : ''}}
+                    value="{{$category->id}}"
+                    >{{$category->name}}</option>
                 @endforeach
             </select>
             @error('intro')
@@ -100,7 +110,7 @@
                 id=""
                 cols="30"
                 rows="10"
-            >{{old('body')}}</textarea>
+            >{{old('body',$blog->body)}}</textarea>
             @error('body')
             <p class="text-danger">{{$message}}</p>
             @enderror

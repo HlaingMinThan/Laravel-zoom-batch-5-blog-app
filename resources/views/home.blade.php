@@ -50,6 +50,12 @@
         class="blog-card"
         style="{{$loop->even ? 'background-color: lightgreen;' : ''}}"
     >
+        <img
+            src="{{$blog->photo}}"
+            alt=""
+            width="200"
+            height="200"
+        >
         <h3>
             <a href="/blogs/{{$blog->slug}}">
                 {{$blog->title}}
