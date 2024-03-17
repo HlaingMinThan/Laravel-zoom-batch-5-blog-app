@@ -97,7 +97,7 @@
             <textarea
                 class="form-control"
                 name="body"
-                id=""
+                id="blog-create-body"
                 cols="30"
                 rows="10"
             >{{old('body')}}</textarea>

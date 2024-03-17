@@ -12,7 +12,7 @@
             </button>
         </form>
     </h1>
-    <p> {{ $blog->body }}</p>
+    <p> {!! $blog->body !!}</p>
 
     <h1>Comments</h1>
     <label for="">Comment body</label>
@@ -43,6 +43,19 @@
         </h4>
 
         <p>{{$comment->body}}</p>
+        @can('edit',$comment)
+        <a
+            href=""
+            class="btn btn-warning my-2 mx-2"
+        >edit</a>
+        @endcan
+
+        @can('delete',$comment)
+        <a
+            href=""
+            class="btn btn-danger"
+        >delete</a>
+        @endcan
     </div>
     @endforeach
 

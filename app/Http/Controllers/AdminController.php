@@ -11,7 +11,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $blogs = Blog::all();
+        $blogs = auth()->user()->blogs;
         return view('admin.index', [
             'blogs' => $blogs
         ]);

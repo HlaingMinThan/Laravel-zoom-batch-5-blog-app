@@ -29,6 +29,7 @@ Route::middleware(MustBeLoginUser::class)->group(function () {
     Route::get('/blogs/{blog:slug}', [BlogController::class, 'show']);
     Route::post('/logout', [LogoutController::class, 'destroy']);
     Route::post('/blogs/{blog}/subscribe', [SubscriberController::class, 'store']);
+    Route::post('/blogs/{blog}/comments/store', [CommentController::class, 'store']);
 });
 
 //not login
